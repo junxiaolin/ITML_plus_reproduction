@@ -1,0 +1,12 @@
+# tested with Python 3.11
+numpy>=2.0
+scipy>=1.13
+scikit-learn>=1.5
+opencv-python-headless>=4.9
+numba>=0.60
+matplotlib>=3.8
+joblib>=1.4
+threadpoolctl>=3.5
+torch>=2.2        # KDES features for re-ID and LMNN; a GPU is used if available
+cvxpy>=1.5        # tests and SVM+ reference solver
+clarabel>=0.7
