@@ -1,4 +1,4 @@
-"""ITML, ITML-S and ITML+ with gamma from 1e-4 to 1e2 (wider than the paper's grid)."""
+"""ITML and ITML+ with gamma from 1e-4 to 1e2 (wider than the paper's grid)."""
 import argparse
 import json
 import os
@@ -12,7 +12,7 @@ from itmlplus.experiment import LAMBDAS, run_task
 
 RES = os.path.join(os.path.dirname(__file__), '..', 'results')
 GAMMAS_EXT = [10.0 ** e for e in np.arange(-4, 2.01, 0.5)]
-METHODS = ['ITML', 'ITML-S', 'ITML+']
+METHODS = ['ITML', 'ITML+']
 
 
 def main():
@@ -23,7 +23,6 @@ def main():
     ap.add_argument('--out', required=True)
     args = ap.parse_args()
     grids = {'ITML': [{'gamma': g} for g in GAMMAS_EXT],
-             'ITML-S': [{'gamma': g} for g in GAMMAS_EXT],
              'ITML+': [{'gamma': g, 'lam': l} for g in GAMMAS_EXT for l in LAMBDAS]}
     results = []
     if args.dataset == 'uw':

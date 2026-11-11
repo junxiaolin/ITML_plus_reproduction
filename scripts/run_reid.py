@@ -68,8 +68,7 @@ def build_task(ext, split, rng, seed):
     for name in ['test_seq', 'test_cross']:
         lab = np.array([l for _, l in split[name]])
         evals[name] = probe_gallery(px(feats[name]), lab)
-    return Task(Xtr=Xtr, Ztr=Ztr, ytr_labels=ltr, pairs=pairs, y=y,
-                bounds_x=compute_bounds(Xtr), bounds_z=compute_bounds(Ztr),
+    return Task(Xtr=Xtr, Ztr=Ztr, pairs=pairs, y=y, bounds_x=compute_bounds(Xtr),
                 evals=evals, kind='reid')
 
 

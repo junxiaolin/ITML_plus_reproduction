@@ -66,7 +66,6 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument('--verif', nargs='*', default=[])      # name=file.json
     ap.add_argument('--reid', default=None)
-    ap.add_argument('--partial', default=None)
     ap.add_argument('--trainsize', default=None)
     ap.add_argument('--grid', nargs='*', default=[])      # name=file.json:evalset:measure
     ap.add_argument('--extended', nargs='*', default=[])  # name=file.json:eval:meas[:eval:meas]
@@ -92,24 +91,6 @@ def main():
         md.append(fmt_table([('Cross (Walking analogue)', per_round(recs, 'test_cross', 'rank1')),
                              ('Seq (Still analogue)', per_round(recs, 'test_seq', 'rank1'))], cols,
                             f'Re-identification: mean rank-1 (%) ± std over {len(recs)} rounds'))
-    if args.partial:
-        recs = load(args.partial)
-        fr = sorted({r['setting']['priv_frac'] for r in recs})
-        fig, axs = plt.subplots(1, 2, figsize=(8, 3.2))
-        rows = []
-        for ax, meas in zip(axs, ['AP', 'AUC']):
-            vals = [np.array(per_round(recs, 'test', meas, {'priv_frac': f})['ITML+']) for f in fr]
-            ax.errorbar(fr, [v.mean() for v in vals], [v.std(ddof=1) for v in vals], marker='o',
-                        color='tab:red', capsize=3)
-            ax.set_xlabel('The ratio of pairs with privileged information')
-            ax.set_ylabel(meas)
-            rows.append((meas, vals))
-        fig.tight_layout()
-        fig.savefig(os.path.join(FIG, f'fig2_partial{args.figtag}.png'), dpi=150)
-        md.append('**Partial ITML+ (Fig. 2 analogue)**\n\n| ratio | ' + ' | '.join(f'{f:g}' for f in fr) + ' |\n'
-                  + '|---' * (len(fr) + 1) + '|\n' + '\n'.join(
-                      f'| {m} | ' + ' | '.join(f'{v.mean() * 100:.2f}±{v.std(ddof=1) * 100:.2f}' for v in vals) + ' |'
-                      for m, vals in rows) + '\n')
     if args.trainsize:
         recs = load(args.trainsize)
         fr = sorted({r['setting']['train_frac'] for r in recs})
@@ -146,8 +127,6 @@ def main():
         md.append('Selected hyper-parameters per round: ' + '; '.join(
             f'{m}: ' + ', '.join(str({k: float(f'{v:.3g}') for k, v in h.items()}) for h in hp[m])
             for m in cols) + '\n')
-    if args.partial and args.trainsize:
-        md.append(fixed_gamma_figure(load(args.partial), load(args.trainsize), tag=args.figtag))
     if args.timing:
         with open(os.path.join(RES, args.timing)) as f:
             T = json.load(f)
@@ -159,51 +138,6 @@ def main():
     if args.out:
         with open(os.path.join(RES, args.out), 'w') as f:
             f.write(text)
-
-
-def fixed_gamma_curve(recs, key, method, gamma, evalset='test', meas='AP'):
-    """Per setting value (priv_frac / train_frac): test score at a fixed gamma,
-    other hyper-parameters (lambda) chosen on the validation set per round."""
-    xs = sorted({r['setting'][key] for r in recs})
-    out = []
-    for x in xs:
-        vals = []
-        for rec in recs:
-            if rec['setting'][key] != x:
-                continue
-            rows = [r for r in rec['all'][method] if abs(r['hp']['gamma'] - gamma) < 1e-12 * max(1, gamma)]
-            best = max(rows, key=lambda r: r['scores']['val']['AP'])
-            vals.append(best['scores'][evalset][meas])
-        out.append(np.array(vals))
-    return xs, out
-
-
-def fixed_gamma_figure(partial_recs, trainsize_recs, gamma=0.01, tag=''):
-    fig, axs = plt.subplots(1, 2, figsize=(9, 3.4))
-    md = [f'**Fixed gamma = {gamma:g} (loose slack), lambda selected on validation: test AP (%)**', '']
-    xs, v = fixed_gamma_curve(partial_recs, 'priv_frac', 'ITML+', gamma)
-    axs[0].errorbar(xs, [a.mean() * 100 for a in v], [a.std(ddof=1) * 100 for a in v], marker='o',
-                    color='tab:red', capsize=3, label=f'partial ITML+ (gamma={gamma:g})')
-    axs[0].set_xlabel('The ratio of pairs with privileged information')
-    axs[0].set_ylabel('AP (%)')
-    axs[0].set_title('BIWI-B (Fig. 2 analogue)', fontsize=9)
-    axs[0].legend(fontsize=8)
-    md += ['| ratio | ' + ' | '.join(f'{x:g}' for x in xs) + ' |', '|---' * (len(xs) + 1) + '|',
-           '| partial ITML+ | ' + ' | '.join(f'{a.mean() * 100:.2f}±{a.std(ddof=1) * 100:.2f}' for a in v) + ' |', '']
-    rows = []
-    for m, c, mk in [('ITML+', 'tab:red', 'o'), ('ITML', 'tab:blue', '^')]:
-        xs, v = fixed_gamma_curve(trainsize_recs, 'train_frac', m, gamma)
-        axs[1].errorbar(xs, [a.mean() * 100 for a in v], [a.std(ddof=1) * 100 for a in v], marker=mk,
-                        color=c, capsize=3, label=f'{m} (gamma={gamma:g})')
-        rows.append(f'| {m} | ' + ' | '.join(f'{a.mean() * 100:.2f}±{a.std(ddof=1) * 100:.2f}' for a in v) + ' |')
-    axs[1].set_xlabel('The ratio of training pairs')
-    axs[1].set_ylabel('AP (%)')
-    axs[1].set_title('BIWI-A (Fig. 3 analogue)', fontsize=9)
-    axs[1].legend(fontsize=8)
-    md += ['| train ratio | ' + ' | '.join(f'{x:g}' for x in xs) + ' |', '|---' * (len(xs) + 1) + '|'] + rows
-    fig.tight_layout()
-    fig.savefig(os.path.join(FIG, f'fig2_fig3_fixed_gamma{tag}.png'), dpi=150)
-    return '\n'.join(md) + '\n'
 
 
 def grid_means(recs, method, evalset, meas):

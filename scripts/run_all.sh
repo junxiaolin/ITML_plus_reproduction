@@ -15,11 +15,10 @@ step scripts/prepare_biwi.py --tag full
 step scripts/make_relit.py --name biwi_a_full
 step scripts/make_relit.py --name biwi_b_full
 
-# paper protocol (Tables I-IV, Fig. 2-4)
+# paper protocol (Tables I-IV, Fig. 3-4)
 step scripts/run_verif.py --data $A --protocol eurocom --mode main --out verif_biwi_a_full.json
 step scripts/run_verif.py --data $B --protocol curtin --mode main --out verif_biwi_b_full.json
 step scripts/run_reid.py --rounds 5 --out reid_uw.json
-step scripts/run_verif.py --data $B --protocol curtin --mode partial --out partial_biwi_b_full.json
 step scripts/run_verif.py --data $A --protocol eurocom --mode trainsize --out trainsize_biwi_a_full.json
 step scripts/analyze_distances.py
 step scripts/run_timing.py --data $A --results verif_biwi_a_full.json --out timing_biwi_a_full.json
@@ -35,7 +34,6 @@ step scripts/run_verif.py --data $P/biwi_a_full_relit_glbp.npz --protocol euroco
 step scripts/run_verif.py --data $P/biwi_b_full_relit_glbp.npz --protocol curtin --mode main --out verif_biwi_b_relit.json
 step scripts/run_verif.py --data $P/biwi_a_full_nolight_glbp.npz --protocol eurocom --mode main --out verif_biwi_a_nolight.json
 step scripts/run_verif.py --data $P/biwi_b_full_nolight_glbp.npz --protocol curtin --mode main --out verif_biwi_b_nolight.json
-step scripts/run_verif.py --data $P/biwi_b_full_relit_glbp.npz --protocol curtin --mode partial --out partial_biwi_b_relit.json
 step scripts/run_verif.py --data $P/biwi_a_full_relit_glbp.npz --protocol eurocom --mode trainsize --out trainsize_biwi_a_relit.json
 step scripts/run_reid.py --rounds 5 --relit --out reid_uw_relit.json
 
@@ -53,7 +51,7 @@ step scripts/summarize.py \
   --verif BIWI-A=verif_biwi_a_full.json BIWI-B=verif_biwi_b_full.json \
           BIWI-A-20rounds=verif_biwi_a_full.json+more_biwi_a_full.json \
           BIWI-B-20rounds=verif_biwi_b_full.json+more_biwi_b_full.json \
-  --reid reid_uw.json --partial partial_biwi_b_full.json --trainsize trainsize_biwi_a_full.json \
+  --reid reid_uw.json --trainsize trainsize_biwi_a_full.json \
   --grid biwi_a_full=verif_biwi_a_full.json:test:AP biwi_b_full=verif_biwi_b_full.json:test:AP \
          uw_cross=reid_uw.json:test_cross:rank1 uw_seq=reid_uw.json:test_seq:rank1 \
   --extended BIWI-A=ext_biwi_a_full.json:test:AP:test:AUC BIWI-B=ext_biwi_b_full.json:test:AP:test:AUC \
@@ -64,7 +62,7 @@ step scripts/summarize.py \
           BIWI-A-relit-20rounds=verif_biwi_a_relit.json+more_biwi_a_relit.json \
           BIWI-B-relit-20rounds=verif_biwi_b_relit.json+more_biwi_b_relit.json \
           BIWI-A-nolight-control=verif_biwi_a_nolight.json BIWI-B-nolight-control=verif_biwi_b_nolight.json \
-  --reid reid_uw_relit.json --partial partial_biwi_b_relit.json --trainsize trainsize_biwi_a_relit.json \
+  --reid reid_uw_relit.json --trainsize trainsize_biwi_a_relit.json \
   --grid biwi_a_relit=verif_biwi_a_relit.json:test:AP biwi_b_relit=verif_biwi_b_relit.json:test:AP \
   --figtag _relit --out summary_relit.md
 echo "=== $(date '+%F %T') all done"

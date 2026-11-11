@@ -32,8 +32,7 @@ def tasks_for_round(D, r, protocol):
     out = {}
     for name, f in views.items():
         X = f(itr)
-        out[name] = Task(Xtr=X, Ztr=X, ytr_labels=ltr, pairs=pairs, y=y, bounds_x=compute_bounds(X),
-                         bounds_z=compute_bounds(X),
+        out[name] = Task(Xtr=X, Ztr=X, pairs=pairs, y=y, bounds_x=compute_bounds(X),
                          evals={k: (f(idx), *ev[k]) for k, idx in [('val', iva), ('test', ite)]})
     return out
 

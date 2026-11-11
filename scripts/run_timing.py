@@ -1,10 +1,9 @@
-"""Table IV analogue: training time of LMNN, ITML, ITML-S and ITML+ on one CPU
-thread, with the hyper-parameters selected in the main experiment."""
+"""Table IV analogue: training time of ITML and ITML+ on one CPU thread,
+ with the hyper-parameters selected in the main experiment."""
 import argparse
 import json
 import os
 import sys
-import time
 
 import numpy as np
 from threadpoolctl import threadpool_limits
@@ -24,25 +23,17 @@ def main():
     ap.add_argument('--protocol', default='eurocom')
     ap.add_argument('--out', default='timing.json')
     args = ap.parse_args()
-    import torch
-    torch.set_num_threads(1)
     D = dict(np.load(args.data, allow_pickle=True))
     with open(os.path.join(RES, args.results)) as f:
         recs = [r for r in json.load(f) if r['setting'] == {}]
-    times = {m: [] for m in ['LMNN', 'ITML', 'ITML-S', 'ITML+']}
+    times = {m: [] for m in ['ITML', 'ITML+']}
     with threadpool_limits(1):
         for rec in recs:
             task = build_task(D, rec['round'], args.protocol)
             for m in times:
                 hp = rec['results'][m]['hp']
-                if m == 'LMNN':  # CPU, like the other methods
-                    from itmlplus.baselines import lmnn
-                    t0 = time.perf_counter()
-                    lmnn(task.Xtr, task.ytr_labels, mu=hp['mu'], k=5, device='cpu', seed=rec['round'])
-                    t = time.perf_counter() - t0
-                else:
-                    fit_method(task, m, hp, seed=rec['round'])  # warm-up (numba JIT cache)
-                    _, t = fit_method(task, m, hp, seed=rec['round'])
+                fit_method(task, m, hp, seed=rec['round'])  # warm-up (numba JIT cache)
+                _, t = fit_method(task, m, hp, seed=rec['round'])
                 times[m].append(t)
                 print(f'round {rec["round"]} {m:7s} hp={hp} {t:.2f}s', flush=True)
     summary = {m: (float(np.mean(v)), float(np.std(v, ddof=1))) for m, v in times.items()}

@@ -92,7 +92,7 @@ def check_single_projection():
         M, P = Mt.copy(), Pt.copy()
         _, _, xi = _itmlplus_core(X, Z, np.array([0]), np.array([1]),
                                   np.array([y]), np.array([xit]),
-                                  np.array([True]), gamma, lam, M, P, 1, 0.0, False)
+                                  gamma, lam, M, P, 1, 0.0, False)
         # numerical: variables = cholesky params of M, P (PSD by construction)
         def unpack(t):
             L1 = np.array([[np.exp(t[0]), 0], [t[1], np.exp(t[2])]])

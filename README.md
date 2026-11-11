@@ -6,11 +6,11 @@ This repo reproduces ITML+ from
 
 The setting: training images have RGB and depth, test images only RGB. ITML+ uses the depth as privileged information. It takes ITML and replaces the free slack variable of each training pair with that pair's distance in depth space, d_P(z_i, z_j), so it learns an RGB metric M and a depth metric P together.
 
-Everything in the paper is implemented here: ITML+, partial ITML+, the six baselines (L2, SVM, ITML, LMNN, ITML-S, SVM+), the G-LBP and KDES+EMK features, and the experiments behind Tables I–IV and Fig. 2–4. The ITML, ITML+ and SVM+ solvers were checked against cvxpy.
+This repo covers three methods: plain L2, ITML and ITML+, with the paper's G-LBP and KDES+EMK features. The paper's other baselines (LMNN, SVM, SVM+, ITML-S) and partial ITML+ are not included. The ITML and ITML+ solvers were checked against cvxpy.
 
 ## Short version
 
-On the original data, learning a metric helps a lot (9 to 19 AP over plain L2), just like in the paper. ITML+ itself, however, ends up tied with ITML. Over 20 random splits it is 0.43 AP lower on BIWI-A and 0.21 lower on BIWI-B, whereas the paper reports a clear gain.
+On the original data, learning a metric helps a lot (ITML is 17 AP above plain L2 on BIWI-A and 9 on BIWI-B), just like in the paper. ITML+ itself, however, ends up tied with ITML. Over 20 random splits it is 0.43 AP lower on BIWI-A and 0.21 lower on BIWI-B, whereas the paper reports a clear gain.
 
 We think the reason is the data. The paper's argument (its Fig. 1) is that depth stays the same when the lighting changes. Our faces were recorded under constant room light, and the main nuisance is head pose, which changes the depth map as much as the color image. So we re-lit the RGB faces at random and left the depth alone. With that change, ITML+ does beat ITML: +1.43 AP on BIWI-A (16 of 20 splits, p = 0.003) and +0.96 AP on BIWI-B (18 of 20, p < 0.0001). That is still smaller than the paper's +2.7 / +3.5, and the lighting is simulated, so treat it as a check of the mechanism rather than a full replication.
 
@@ -39,18 +39,18 @@ For re-ID we test on all 250 remaining instances. "Cross" (probe at 30° elevati
 
 ## Results
 
-All eight methods, AUC values and the selected hyper-parameters are in [`results/summary.md`](results/summary.md) and [`results/summary_relit.md`](results/summary_relit.md). Below are the AP (faces) and rank-1 (re-ID) numbers for the paper's protocol over 5 splits, with the paper's values in brackets.
+AUC values and the selected hyper-parameters are in [`results/summary.md`](results/summary.md) and [`results/summary_relit.md`](results/summary_relit.md). Below are the AP (faces) and rank-1 (re-ID) numbers for the paper's protocol over 5 splits, with the paper's values in brackets.
 
-| | L2 | SVM | ITML | LMNN | ITML-S | SVM+ | ITML+ |
-|---|---|---|---|---|---|---|---|
-| BIWI-A | 55.9 (58.8) | 54.5 (66.0) | 73.1 (84.2) | 74.5 (84.3) | 73.1 (83.9) | 53.4 (66.0) | 71.9 (86.8) |
-| BIWI-B | 73.1 (62.1) | 72.3 (71.9) | 82.5 (75.2) | 82.0 (71.7) | 82.3 (74.6) | 73.7 (71.9) | 82.3 (78.7) |
-| UW Cross | 47.8 (34.6) | 24.8 (31.8) | 46.7 (46.6) | 43.8 (33.1) | 46.5 (46.7) | 13.0 (26.8) | 48.6 (48.2) |
-| UW Seq | 82.6 (85.8) | 65.9 (81.2) | 85.6 (92.9) | 85.7 (86.1) | 85.1 (93.0) | 35.3 (79.2) | 85.8 (95.2) |
+| | L2 | ITML | ITML+ |
+|---|---|---|---|
+| BIWI-A | 55.9 (58.8) | 73.1 (84.2) | 71.9 (86.8) |
+| BIWI-B | 73.1 (62.1) | 82.5 (75.2) | 82.3 (78.7) |
+| UW Cross | 47.8 (34.6) | 46.7 (46.6) | 48.6 (48.2) |
+| UW Seq | 82.6 (85.8) | 85.6 (92.9) | 85.8 (95.2) |
 
 To see how much depth could help in principle, `scripts/diag_upper_bound.py` trains plain ITML on BIWI-A with depth available at test time too. That breaks the paper's setting on purpose, so it is only an upper bound. RGB alone gives 73.1 AP, depth alone 69.5, and the two concatenated 77.7. So there is information in the depth that ITML+ does not manage to pass on to the RGB metric. Scaling the features differently, running 30 sweeps instead of 10, widening the γ grid to 1e2 or using the uncorrected Lemma 2 (see below) did not change that.
 
-The re-lighting is done by `scripts/make_relit.py`. Each RGB face gets Lambert shading from the normals of its own depth map, with a random light direction (25–70° off the viewing axis), exposure and gamma. A control run through the same code without re-lighting gives the original numbers back. In the re-lit setting, validation picks λ between 0.3 and 10, while on the original data it picks 0.01, which turns ITML+ back into ITML. The method ranking on BIWI-B then looks like the paper's Table II, and the Fig. 2 trend (more privileged pairs, higher AP) shows up as well. On the object data, re-lighting gives no consistent gain, probably because Kinect depth of small objects is too noisy.
+The re-lighting is done by `scripts/make_relit.py`. Each RGB face gets Lambert shading from the normals of its own depth map, with a random light direction (25–70° off the viewing axis), exposure and gamma. A control run through the same code without re-lighting gives the original numbers back. In the re-lit setting, validation picks λ between 0.3 and 10, while on the original data it picks 0.01, which turns ITML+ back into ITML. On the object data, re-lighting gives no consistent gain, probably because Kinect depth of small objects is too noisy.
 
 | 20 splits, ITML+ minus ITML (AP) | original light | simulated lighting |
 |---|---|---|
@@ -61,7 +61,7 @@ The re-lighting is done by `scripts/make_relit.py`. Each RGB face gets Lambert s
 
 ## Two things we ran into
 
-Lemma 2 as printed uses α = max{0, ·}, so a projection is never undone. ITML's original code keeps a dual variable per constraint and allows undoing it (Hildreth's method). Without that, the cyclic projections stop at a feasible point that is not the optimum; on small problems the objective ends up 0.2 to 2.6 above it. With α = max{−Λ_ij, α_eq} the result matches cvxpy on objective (4) to about 1e-11. "ITML+" in the results is the corrected version, and `ITML+ (Lemma 2 verbatim)` is kept next to it. In practice the two differ by less than 0.7 AP.
+Lemma 2 as printed uses α = max{0, ·}, so a projection is never undone. ITML's original code keeps a dual variable per constraint and allows undoing it (Hildreth's method). Without that, the cyclic projections stop at a feasible point that is not the optimum; on small problems the objective ends up 0.2 to 2.6 above it. With α = max{−Λ_ij, α_eq} the result matches cvxpy on objective (4) to about 1e-11. "ITML+" in the results is the corrected version; `ITMLPlus(correction=False)` gives the one as printed. In our runs the two differed by less than 0.7 AP.
 
 The ITML+ constraints are also homogeneous: if (M, P) satisfies y·d_M ≤ y·d_P, so does (cM, cP). With far more pairs than parameters, objective (4) may then have no minimiser. We did not see this happen within 10 sweeps on the real data.
 
@@ -86,6 +86,6 @@ Then run the solver checks in `tests/` (`python tests/test_metric.py` and so on)
 ITMLPLUS_JOBS=8 bash scripts/run_all.sh
 ```
 
-which writes `results/` and `figures/`. Each worker needs less than 1 GB of RAM, and the KDES features and LMNN use a GPU if there is one.
+which writes `results/` and `figures/`. Each worker needs less than 1 GB of RAM, and the KDES features use a GPU if there is one.
 
-The library code is in `itmlplus/`: the solvers in `metric.py`, the baselines in `baselines.py`, the features in `features.py`, data loading in `biwi.py` and `uw_rgbd.py`, and the evaluation loop in `protocol.py` and `experiment.py`. `scripts/` has one script per experiment plus `summarize.py`, which turns the JSON results into the tables and plots.
+The library code is in `itmlplus/`: the solvers in `metric.py`, the features in `features.py`, data loading in `biwi.py` and `uw_rgbd.py`, and the evaluation loop in `protocol.py` and `experiment.py`. `scripts/` has one script per experiment plus `summarize.py`, which turns the JSON results into the tables and plots.

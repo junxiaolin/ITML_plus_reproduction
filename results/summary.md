@@ -1,52 +1,45 @@
 **BIWI-A: mean AP / AUC (%) ± std over 5 rounds**
 
-| | L2 | SVM | ITML | LMNN | ITML-S | SVM+ | ITML+ | ITML+ (Lemma 2 verbatim) |
-|---|---|---|---|---|---|---|---|---|
-| AP | 55.91±7.05 | 54.54±6.97 | **73.07±6.66** | **74.48±3.84** | **73.07±6.66** | 53.38±7.97 | **71.93±8.34** | **72.41±8.34** |
-| AUC | 74.58±5.93 | 75.23±5.59 | **86.00±4.01** | **87.13±2.90** | **86.00±4.01** | 74.23±6.60 | **85.85±4.19** | **85.59±4.78** |
+| | L2 | ITML | ITML+ |
+|---|---|---|---|
+| AP | 55.91±7.05 | **73.07±6.66** | **71.93±8.34** |
+| AUC | 74.58±5.93 | **86.00±4.01** | **85.85±4.19** |
 
-Selected hyper-parameters per round: SVM: {'C': 10.0}, {'C': 0.01}, {'C': 1.0}, {'C': 1.0}, {'C': 0.01}; ITML: {'gamma': 1.0}, {'gamma': 1.0}, {'gamma': 1.0}, {'gamma': 1.0}, {'gamma': 1.0}; LMNN: {'mu': 0.2}, {'mu': 0.4}, {'mu': 0.6}, {'mu': 0.2}, {'mu': 0.4}; ITML-S: {'gamma': 1.0}, {'gamma': 1.0}, {'gamma': 1.0}, {'gamma': 1.0}, {'gamma': 1.0}; SVM+: {'C': 0.1, 'gamma': 100.0}, {'C': 0.1, 'gamma': 100.0}, {'C': 0.01, 'gamma': 100.0}, {'C': 0.1, 'gamma': 100.0}, {'C': 0.1, 'gamma': 100.0}; ITML+: {'gamma': 1.0, 'lam': 1.0}, {'gamma': 1.0, 'lam': 0.01}, {'gamma': 1.0, 'lam': 10.0}, {'gamma': 1.0, 'lam': 0.1}, {'gamma': 1.0, 'lam': 0.01}; ITML+ (Lemma 2 verbatim): {'gamma': 1.0, 'lam': 10.0}, {'gamma': 1.0, 'lam': 0.316}, {'gamma': 1.0, 'lam': 10.0}, {'gamma': 0.316, 'lam': 0.316}, {'gamma': 1.0, 'lam': 0.01}
+Selected hyper-parameters per round: ITML: {'gamma': 1.0}, {'gamma': 1.0}, {'gamma': 1.0}, {'gamma': 1.0}, {'gamma': 1.0}; ITML+: {'gamma': 1.0, 'lam': 1.0}, {'gamma': 1.0, 'lam': 0.01}, {'gamma': 1.0, 'lam': 10.0}, {'gamma': 1.0, 'lam': 0.1}, {'gamma': 1.0, 'lam': 0.01}
 
 **BIWI-B: mean AP / AUC (%) ± std over 5 rounds**
 
-| | L2 | SVM | ITML | LMNN | ITML-S | SVM+ | ITML+ | ITML+ (Lemma 2 verbatim) |
-|---|---|---|---|---|---|---|---|---|
-| AP | 73.14±5.09 | 72.31±4.48 | **82.48±2.35** | **81.99±2.39** | **82.27±2.31** | 73.72±4.15 | **82.34±2.40** | **82.54±2.12** |
-| AUC | 69.73±6.38 | 71.40±4.51 | **80.55±2.35** | **79.61±3.89** | **80.20±2.42** | 71.66±3.99 | **80.37±2.59** | **80.55±2.45** |
+| | L2 | ITML | ITML+ |
+|---|---|---|---|
+| AP | 73.14±5.09 | **82.48±2.35** | **82.34±2.40** |
+| AUC | 69.73±6.38 | **80.55±2.35** | **80.37±2.59** |
 
-Selected hyper-parameters per round: SVM: {'C': 0.1}, {'C': 100.0}, {'C': 100.0}, {'C': 100.0}, {'C': 100.0}; ITML: {'gamma': 0.1}, {'gamma': 1.0}, {'gamma': 0.1}, {'gamma': 0.316}, {'gamma': 0.316}; LMNN: {'mu': 0.4}, {'mu': 0.1}, {'mu': 0.3}, {'mu': 0.1}, {'mu': 0.1}; ITML-S: {'gamma': 0.1}, {'gamma': 1.0}, {'gamma': 0.316}, {'gamma': 0.316}, {'gamma': 1.0}; SVM+: {'C': 0.1, 'gamma': 0.01}, {'C': 0.01, 'gamma': 100.0}, {'C': 10.0, 'gamma': 1.0}, {'C': 0.1, 'gamma': 100.0}, {'C': 10.0, 'gamma': 0.01}; ITML+: {'gamma': 0.1, 'lam': 1.0}, {'gamma': 0.316, 'lam': 0.316}, {'gamma': 0.1, 'lam': 0.316}, {'gamma': 0.316, 'lam': 0.1}, {'gamma': 0.316, 'lam': 0.1}; ITML+ (Lemma 2 verbatim): {'gamma': 0.1, 'lam': 1.0}, {'gamma': 0.316, 'lam': 3.16}, {'gamma': 0.0316, 'lam': 0.1}, {'gamma': 0.1, 'lam': 1.0}, {'gamma': 0.316, 'lam': 0.1}
+Selected hyper-parameters per round: ITML: {'gamma': 0.1}, {'gamma': 1.0}, {'gamma': 0.1}, {'gamma': 0.316}, {'gamma': 0.316}; ITML+: {'gamma': 0.1, 'lam': 1.0}, {'gamma': 0.316, 'lam': 0.316}, {'gamma': 0.1, 'lam': 0.316}, {'gamma': 0.316, 'lam': 0.1}, {'gamma': 0.316, 'lam': 0.1}
 
 **BIWI-A-20rounds: mean AP / AUC (%) ± std over 20 rounds**
 
-| | L2 | SVM | ITML | LMNN | ITML-S | SVM+ | ITML+ | ITML+ (Lemma 2 verbatim) |
-|---|---|---|---|---|---|---|---|---|
-| AP | 55.59±7.99 | 54.00±7.76 | **72.99±8.37** | **74.89±7.78** | **73.02±8.32** | 50.83±6.62 | 72.56±8.61 | **73.22±8.69** |
-| AUC | 74.23±5.94 | 74.09±5.83 | 85.20±5.79 | **86.19±5.91** | 85.22±5.76 | 71.87±5.31 | 85.11±5.79 | 85.19±5.86 |
+| | L2 | ITML | ITML+ |
+|---|---|---|---|
+| AP | 55.59±7.99 | **72.99±8.37** | **72.56±8.61** |
+| AUC | 74.23±5.94 | **85.20±5.79** | 85.11±5.79 |
 
-Selected hyper-parameters per round: SVM: {'C': 10.0}, {'C': 0.01}, {'C': 1.0}, {'C': 1.0}, {'C': 0.01}, {'C': 10.0}, {'C': 0.01}, {'C': 0.01}, {'C': 0.01}, {'C': 0.01}, {'C': 100.0}, {'C': 1.0}, {'C': 10.0}, {'C': 0.01}, {'C': 10.0}, {'C': 0.01}, {'C': 0.01}, {'C': 0.1}, {'C': 0.01}, {'C': 100.0}; ITML: {'gamma': 1.0}, {'gamma': 1.0}, {'gamma': 1.0}, {'gamma': 1.0}, {'gamma': 1.0}, {'gamma': 1.0}, {'gamma': 1.0}, {'gamma': 1.0}, {'gamma': 1.0}, {'gamma': 1.0}, {'gamma': 1.0}, {'gamma': 1.0}, {'gamma': 1.0}, {'gamma': 1.0}, {'gamma': 1.0}, {'gamma': 1.0}, {'gamma': 1.0}, {'gamma': 1.0}, {'gamma': 1.0}, {'gamma': 1.0}; LMNN: {'mu': 0.2}, {'mu': 0.4}, {'mu': 0.6}, {'mu': 0.2}, {'mu': 0.4}, {'mu': 0.7}, {'mu': 0.9}, {'mu': 0.1}, {'mu': 0.6}, {'mu': 0.5}, {'mu': 0.3}, {'mu': 0.4}, {'mu': 0.3}, {'mu': 0.4}, {'mu': 0.8}, {'mu': 0.7}, {'mu': 0.6}, {'mu': 0.2}, {'mu': 0.6}, {'mu': 0.6}; ITML-S: {'gamma': 1.0}, {'gamma': 1.0}, {'gamma': 1.0}, {'gamma': 1.0}, {'gamma': 1.0}, {'gamma': 1.0}, {'gamma': 1.0}, {'gamma': 1.0}, {'gamma': 1.0}, {'gamma': 1.0}, {'gamma': 1.0}, {'gamma': 1.0}, {'gamma': 1.0}, {'gamma': 1.0}, {'gamma': 1.0}, {'gamma': 1.0}, {'gamma': 1.0}, {'gamma': 1.0}, {'gamma': 1.0}, {'gamma': 1.0}; SVM+: {'C': 0.1, 'gamma': 100.0}, {'C': 0.1, 'gamma': 100.0}, {'C': 0.01, 'gamma': 100.0}, {'C': 0.1, 'gamma': 100.0}, {'C': 0.1, 'gamma': 100.0}, {'C': 10.0, 'gamma': 0.01}, {'C': 0.1, 'gamma': 100.0}, {'C': 0.01, 'gamma': 100.0}, {'C': 0.1, 'gamma': 100.0}, {'C': 0.1, 'gamma': 100.0}, {'C': 0.01, 'gamma': 10.0}, {'C': 0.01, 'gamma': 100.0}, {'C': 0.01, 'gamma': 100.0}, {'C': 0.01, 'gamma': 100.0}, {'C': 0.01, 'gamma': 0.01}, {'C': 0.1, 'gamma': 100.0}, {'C': 0.01, 'gamma': 100.0}, {'C': 0.01, 'gamma': 100.0}, {'C': 0.1, 'gamma': 100.0}, {'C': 0.01, 'gamma': 100.0}; ITML+: {'gamma': 1.0, 'lam': 1.0}, {'gamma': 1.0, 'lam': 0.01}, {'gamma': 1.0, 'lam': 10.0}, {'gamma': 1.0, 'lam': 0.1}, {'gamma': 1.0, 'lam': 0.01}, {'gamma': 1.0, 'lam': 0.316}, {'gamma': 1.0, 'lam': 0.01}, {'gamma': 1.0, 'lam': 0.0316}, {'gamma': 1.0, 'lam': 3.16}, {'gamma': 1.0, 'lam': 0.01}, {'gamma': 1.0, 'lam': 0.01}, {'gamma': 1.0, 'lam': 0.01}, {'gamma': 1.0, 'lam': 0.1}, {'gamma': 1.0, 'lam': 3.16}, {'gamma': 1.0, 'lam': 0.0316}, {'gamma': 1.0, 'lam': 0.316}, {'gamma': 1.0, 'lam': 0.01}, {'gamma': 1.0, 'lam': 0.01}, {'gamma': 1.0, 'lam': 0.1}, {'gamma': 1.0, 'lam': 0.0316}; ITML+ (Lemma 2 verbatim): {'gamma': 1.0, 'lam': 10.0}, {'gamma': 1.0, 'lam': 0.316}, {'gamma': 1.0, 'lam': 10.0}, {'gamma': 0.316, 'lam': 0.316}, {'gamma': 1.0, 'lam': 0.01}, {'gamma': 1.0, 'lam': 0.01}, {'gamma': 0.1, 'lam': 0.1}, {'gamma': 1.0, 'lam': 3.16}, {'gamma': 0.316, 'lam': 1.0}, {'gamma': 1.0, 'lam': 0.316}, {'gamma': 1.0, 'lam': 0.316}, {'gamma': 1.0, 'lam': 1.0}, {'gamma': 1.0, 'lam': 0.316}, {'gamma': 1.0, 'lam': 10.0}, {'gamma': 1.0, 'lam': 3.16}, {'gamma': 1.0, 'lam': 0.01}, {'gamma': 0.316, 'lam': 0.01}, {'gamma': 1.0, 'lam': 0.01}, {'gamma': 1.0, 'lam': 3.16}, {'gamma': 0.316, 'lam': 0.0316}
+Selected hyper-parameters per round: ITML: {'gamma': 1.0}, {'gamma': 1.0}, {'gamma': 1.0}, {'gamma': 1.0}, {'gamma': 1.0}, {'gamma': 1.0}, {'gamma': 1.0}, {'gamma': 1.0}, {'gamma': 1.0}, {'gamma': 1.0}, {'gamma': 1.0}, {'gamma': 1.0}, {'gamma': 1.0}, {'gamma': 1.0}, {'gamma': 1.0}, {'gamma': 1.0}, {'gamma': 1.0}, {'gamma': 1.0}, {'gamma': 1.0}, {'gamma': 1.0}; ITML+: {'gamma': 1.0, 'lam': 1.0}, {'gamma': 1.0, 'lam': 0.01}, {'gamma': 1.0, 'lam': 10.0}, {'gamma': 1.0, 'lam': 0.1}, {'gamma': 1.0, 'lam': 0.01}, {'gamma': 1.0, 'lam': 0.316}, {'gamma': 1.0, 'lam': 0.01}, {'gamma': 1.0, 'lam': 0.0316}, {'gamma': 1.0, 'lam': 3.16}, {'gamma': 1.0, 'lam': 0.01}, {'gamma': 1.0, 'lam': 0.01}, {'gamma': 1.0, 'lam': 0.01}, {'gamma': 1.0, 'lam': 0.1}, {'gamma': 1.0, 'lam': 3.16}, {'gamma': 1.0, 'lam': 0.0316}, {'gamma': 1.0, 'lam': 0.316}, {'gamma': 1.0, 'lam': 0.01}, {'gamma': 1.0, 'lam': 0.01}, {'gamma': 1.0, 'lam': 0.1}, {'gamma': 1.0, 'lam': 0.0316}
 
 **BIWI-B-20rounds: mean AP / AUC (%) ± std over 20 rounds**
 
-| | L2 | SVM | ITML | LMNN | ITML-S | SVM+ | ITML+ | ITML+ (Lemma 2 verbatim) |
-|---|---|---|---|---|---|---|---|---|
-| AP | 71.63±5.85 | 69.14±6.41 | **80.50±6.14** | **79.83±6.94** | **80.55±5.87** | 71.44±5.60 | **80.29±6.19** | **80.43±6.23** |
-| AUC | 68.15±6.06 | 67.95±6.12 | **78.54±6.88** | **77.66±8.11** | **78.50±6.60** | 68.83±5.59 | **78.26±6.95** | **78.41±7.11** |
+| | L2 | ITML | ITML+ |
+|---|---|---|---|
+| AP | 71.63±5.85 | **80.50±6.14** | **80.29±6.19** |
+| AUC | 68.15±6.06 | **78.54±6.88** | **78.26±6.95** |
 
-Selected hyper-parameters per round: SVM: {'C': 0.1}, {'C': 100.0}, {'C': 100.0}, {'C': 100.0}, {'C': 100.0}, {'C': 10.0}, {'C': 0.1}, {'C': 0.1}, {'C': 0.01}, {'C': 100.0}, {'C': 100.0}, {'C': 0.1}, {'C': 100.0}, {'C': 0.1}, {'C': 0.01}, {'C': 100.0}, {'C': 100.0}, {'C': 0.1}, {'C': 100.0}, {'C': 100.0}; ITML: {'gamma': 0.1}, {'gamma': 1.0}, {'gamma': 0.1}, {'gamma': 0.316}, {'gamma': 0.316}, {'gamma': 0.316}, {'gamma': 0.0316}, {'gamma': 0.1}, {'gamma': 1.0}, {'gamma': 1.0}, {'gamma': 1.0}, {'gamma': 1.0}, {'gamma': 0.0316}, {'gamma': 0.316}, {'gamma': 0.316}, {'gamma': 0.316}, {'gamma': 0.1}, {'gamma': 0.316}, {'gamma': 0.1}, {'gamma': 0.316}; LMNN: {'mu': 0.4}, {'mu': 0.1}, {'mu': 0.3}, {'mu': 0.1}, {'mu': 0.1}, {'mu': 0.3}, {'mu': 0.9}, {'mu': 0.2}, {'mu': 0.1}, {'mu': 0.2}, {'mu': 0.1}, {'mu': 0.1}, {'mu': 0.1}, {'mu': 0.2}, {'mu': 0.2}, {'mu': 0.9}, {'mu': 0.1}, {'mu': 0.1}, {'mu': 0.1}, {'mu': 0.1}; ITML-S: {'gamma': 0.1}, {'gamma': 1.0}, {'gamma': 0.316}, {'gamma': 0.316}, {'gamma': 1.0}, {'gamma': 0.316}, {'gamma': 0.1}, {'gamma': 0.1}, {'gamma': 1.0}, {'gamma': 0.316}, {'gamma': 1.0}, {'gamma': 1.0}, {'gamma': 0.0316}, {'gamma': 0.316}, {'gamma': 0.1}, {'gamma': 0.316}, {'gamma': 0.316}, {'gamma': 0.316}, {'gamma': 0.1}, {'gamma': 1.0}; SVM+: {'C': 0.1, 'gamma': 0.01}, {'C': 0.01, 'gamma': 100.0}, {'C': 10.0, 'gamma': 1.0}, {'C': 0.1, 'gamma': 100.0}, {'C': 10.0, 'gamma': 0.01}, {'C': 1.0, 'gamma': 10.0}, {'C': 0.01, 'gamma': 100.0}, {'C': 0.1, 'gamma': 0.01}, {'C': 10.0, 'gamma': 0.1}, {'C': 10.0, 'gamma': 0.1}, {'C': 10.0, 'gamma': 1.0}, {'C': 10.0, 'gamma': 0.01}, {'C': 10.0, 'gamma': 0.1}, {'C': 0.01, 'gamma': 100.0}, {'C': 10.0, 'gamma': 0.1}, {'C': 10.0, 'gamma': 100.0}, {'C': 10.0, 'gamma': 10.0}, {'C': 0.1, 'gamma': 0.01}, {'C': 10.0, 'gamma': 1.0}, {'C': 10.0, 'gamma': 1.0}; ITML+: {'gamma': 0.1, 'lam': 1.0}, {'gamma': 0.316, 'lam': 0.316}, {'gamma': 0.1, 'lam': 0.316}, {'gamma': 0.316, 'lam': 0.1}, {'gamma': 0.316, 'lam': 0.1}, {'gamma': 0.316, 'lam': 0.0316}, {'gamma': 0.0316, 'lam': 0.1}, {'gamma': 0.1, 'lam': 0.01}, {'gamma': 1.0, 'lam': 0.01}, {'gamma': 0.316, 'lam': 0.1}, {'gamma': 1.0, 'lam': 0.316}, {'gamma': 1.0, 'lam': 0.316}, {'gamma': 0.0316, 'lam': 0.01}, {'gamma': 0.316, 'lam': 0.1}, {'gamma': 0.316, 'lam': 0.0316}, {'gamma': 0.0316, 'lam': 0.0316}, {'gamma': 0.1, 'lam': 0.1}, {'gamma': 0.1, 'lam': 0.0316}, {'gamma': 0.1, 'lam': 0.0316}, {'gamma': 0.316, 'lam': 0.0316}; ITML+ (Lemma 2 verbatim): {'gamma': 0.1, 'lam': 1.0}, {'gamma': 0.316, 'lam': 3.16}, {'gamma': 0.0316, 'lam': 0.1}, {'gamma': 0.1, 'lam': 1.0}, {'gamma': 0.316, 'lam': 0.1}, {'gamma': 0.1, 'lam': 0.01}, {'gamma': 0.0316, 'lam': 0.316}, {'gamma': 0.0316, 'lam': 0.01}, {'gamma': 1.0, 'lam': 100.0}, {'gamma': 0.1, 'lam': 0.01}, {'gamma': 0.316, 'lam': 1.0}, {'gamma': 1.0, 'lam': 1.0}, {'gamma': 0.0316, 'lam': 0.0316}, {'gamma': 0.316, 'lam': 0.0316}, {'gamma': 0.0316, 'lam': 0.0316}, {'gamma': 0.0316, 'lam': 0.316}, {'gamma': 0.0316, 'lam': 0.0316}, {'gamma': 0.0316, 'lam': 0.01}, {'gamma': 0.316, 'lam': 100.0}, {'gamma': 0.1, 'lam': 0.1}
+Selected hyper-parameters per round: ITML: {'gamma': 0.1}, {'gamma': 1.0}, {'gamma': 0.1}, {'gamma': 0.316}, {'gamma': 0.316}, {'gamma': 0.316}, {'gamma': 0.0316}, {'gamma': 0.1}, {'gamma': 1.0}, {'gamma': 1.0}, {'gamma': 1.0}, {'gamma': 1.0}, {'gamma': 0.0316}, {'gamma': 0.316}, {'gamma': 0.316}, {'gamma': 0.316}, {'gamma': 0.1}, {'gamma': 0.316}, {'gamma': 0.1}, {'gamma': 0.316}; ITML+: {'gamma': 0.1, 'lam': 1.0}, {'gamma': 0.316, 'lam': 0.316}, {'gamma': 0.1, 'lam': 0.316}, {'gamma': 0.316, 'lam': 0.1}, {'gamma': 0.316, 'lam': 0.1}, {'gamma': 0.316, 'lam': 0.0316}, {'gamma': 0.0316, 'lam': 0.1}, {'gamma': 0.1, 'lam': 0.01}, {'gamma': 1.0, 'lam': 0.01}, {'gamma': 0.316, 'lam': 0.1}, {'gamma': 1.0, 'lam': 0.316}, {'gamma': 1.0, 'lam': 0.316}, {'gamma': 0.0316, 'lam': 0.01}, {'gamma': 0.316, 'lam': 0.1}, {'gamma': 0.316, 'lam': 0.0316}, {'gamma': 0.0316, 'lam': 0.0316}, {'gamma': 0.1, 'lam': 0.1}, {'gamma': 0.1, 'lam': 0.0316}, {'gamma': 0.1, 'lam': 0.0316}, {'gamma': 0.316, 'lam': 0.0316}
 
 **Re-identification: mean rank-1 (%) ± std over 5 rounds**
 
-| | L2 | SVM | ITML | LMNN | ITML-S | SVM+ | ITML+ | ITML+ (Lemma 2 verbatim) |
-|---|---|---|---|---|---|---|---|---|
-| Cross (Walking analogue) | **47.76±3.98** | 24.80±3.06 | **46.72±2.85** | **43.76±6.16** | **46.48±1.04** | 13.04±2.27 | **48.64±4.57** | **46.96±3.60** |
-| Seq (Still analogue) | 82.56±1.31 | 65.92±5.69 | **85.60±1.88** | **85.68±0.82** | **85.12±0.33** | 35.28±11.82 | **85.76±1.46** | **84.40±0.98** |
-
-**Partial ITML+ (Fig. 2 analogue)**
-
-| ratio | 0 | 0.25 | 0.5 | 0.75 | 1 |
-|---|---|---|---|---|---|
-| AP | 82.48±2.35 | 82.35±2.15 | 82.37±2.43 | 82.39±2.33 | 82.34±2.40 |
-| AUC | 80.55±2.35 | 80.51±2.17 | 80.49±2.55 | 80.51±2.51 | 80.37±2.59 |
+| | L2 | ITML | ITML+ |
+|---|---|---|---|
+| Cross (Walking analogue) | **47.76±3.98** | **46.72±2.85** | **48.64±4.57** |
+| Seq (Still analogue) | 82.56±1.31 | **85.60±1.88** | **85.76±1.46** |
 
 **ITML vs ITML+ with fewer training pairs (Fig. 3 analogue)**
 
@@ -91,44 +84,33 @@ Selected hyper-parameters per round: SVM: {'C': 0.1}, {'C': 100.0}, {'C': 100.0}
 
 **BIWI-A, extended gamma grid (1e-4 ... 1e2): mean (%) ± std**
 
-| | ITML | ITML-S | ITML+ |
-|---|---|---|---|
-| test AP | **73.43±6.83** | **73.43±6.83** | **72.22±8.58** |
-| test AUC | **86.09±4.15** | **86.09±4.15** | **85.92±4.23** |
+| | ITML | ITML+ |
+|---|---|---|
+| test AP | **73.43±6.83** | **72.22±8.58** |
+| test AUC | **86.09±4.15** | **85.92±4.23** |
 
-Selected hyper-parameters per round: ITML: {'gamma': 100.0}, {'gamma': 100.0}, {'gamma': 31.6}, {'gamma': 1.0}, {'gamma': 10.0}; ITML-S: {'gamma': 100.0}, {'gamma': 100.0}, {'gamma': 31.6}, {'gamma': 1.0}, {'gamma': 10.0}; ITML+: {'gamma': 100.0, 'lam': 100.0}, {'gamma': 100.0, 'lam': 0.01}, {'gamma': 10.0, 'lam': 100.0}, {'gamma': 1.0, 'lam': 0.1}, {'gamma': 10.0, 'lam': 0.01}
+Selected hyper-parameters per round: ITML: {'gamma': 100.0}, {'gamma': 100.0}, {'gamma': 31.6}, {'gamma': 1.0}, {'gamma': 10.0}; ITML+: {'gamma': 100.0, 'lam': 100.0}, {'gamma': 100.0, 'lam': 0.01}, {'gamma': 10.0, 'lam': 100.0}, {'gamma': 1.0, 'lam': 0.1}, {'gamma': 10.0, 'lam': 0.01}
 
 **BIWI-B, extended gamma grid (1e-4 ... 1e2): mean (%) ± std**
 
-| | ITML | ITML-S | ITML+ |
-|---|---|---|---|
-| test AP | **82.50±2.36** | **82.18±2.29** | **82.34±2.40** |
-| test AUC | **80.51±2.39** | 80.05±2.55 | **80.37±2.59** |
+| | ITML | ITML+ |
+|---|---|---|
+| test AP | **82.50±2.36** | **82.34±2.40** |
+| test AUC | **80.51±2.39** | **80.37±2.59** |
 
-Selected hyper-parameters per round: ITML: {'gamma': 0.1}, {'gamma': 3.16}, {'gamma': 0.1}, {'gamma': 0.316}, {'gamma': 0.316}; ITML-S: {'gamma': 0.1}, {'gamma': 100.0}, {'gamma': 0.316}, {'gamma': 0.316}, {'gamma': 1.0}; ITML+: {'gamma': 0.1, 'lam': 1.0}, {'gamma': 0.316, 'lam': 0.316}, {'gamma': 0.1, 'lam': 0.316}, {'gamma': 0.316, 'lam': 0.1}, {'gamma': 0.316, 'lam': 0.1}
+Selected hyper-parameters per round: ITML: {'gamma': 0.1}, {'gamma': 3.16}, {'gamma': 0.1}, {'gamma': 0.316}, {'gamma': 0.316}; ITML+: {'gamma': 0.1, 'lam': 1.0}, {'gamma': 0.316, 'lam': 0.316}, {'gamma': 0.1, 'lam': 0.316}, {'gamma': 0.316, 'lam': 0.1}, {'gamma': 0.316, 'lam': 0.1}
 
 **UW, extended gamma grid (1e-4 ... 1e2): mean (%) ± std**
 
-| | ITML | ITML-S | ITML+ |
-|---|---|---|---|
-| test_cross rank1 | **46.72±2.85** | 43.12±5.16 | **48.64±4.57** |
-| test_seq rank1 | **85.60±1.88** | **83.60±2.04** | **85.76±1.46** |
+| | ITML | ITML+ |
+|---|---|---|
+| test_cross rank1 | **46.72±2.85** | **48.64±4.57** |
+| test_seq rank1 | **85.60±1.88** | **85.76±1.46** |
 
-Selected hyper-parameters per round: ITML: {'gamma': 1.0}, {'gamma': 0.316}, {'gamma': 1.0}, {'gamma': 0.1}, {'gamma': 1.0}; ITML-S: {'gamma': 3.16}, {'gamma': 0.316}, {'gamma': 31.6}, {'gamma': 0.1}, {'gamma': 10.0}; ITML+: {'gamma': 1.0, 'lam': 0.01}, {'gamma': 0.316, 'lam': 0.1}, {'gamma': 1.0, 'lam': 0.01}, {'gamma': 0.1, 'lam': 0.01}, {'gamma': 0.316, 'lam': 0.1}
-
-**Fixed gamma = 0.01 (loose slack), lambda selected on validation: test AP (%)**
-
-| ratio | 0 | 0.25 | 0.5 | 0.75 | 1 |
-|---|---|---|---|---|---|
-| partial ITML+ | 78.09±4.02 | 79.29±3.60 | 79.45±3.51 | 79.62±3.55 | 79.74±3.31 |
-
-| train ratio | 0.2 | 0.4 | 0.6 | 0.8 | 1 |
-|---|---|---|---|---|---|
-| ITML+ | 64.06±7.52 | 65.44±8.22 | 65.86±8.03 | 66.01±8.11 | 66.44±8.20 |
-| ITML | 56.72±7.16 | 57.53±7.41 | 58.20±7.58 | 58.82±7.63 | 59.40±7.73 |
+Selected hyper-parameters per round: ITML: {'gamma': 1.0}, {'gamma': 0.316}, {'gamma': 1.0}, {'gamma': 0.1}, {'gamma': 1.0}; ITML+: {'gamma': 1.0, 'lam': 0.01}, {'gamma': 0.316, 'lam': 0.1}, {'gamma': 1.0, 'lam': 0.01}, {'gamma': 0.1, 'lam': 0.01}, {'gamma': 0.316, 'lam': 0.1}
 
 **Training time (s), single CPU thread (Table IV analogue)**
 
-| | LMNN | ITML | ITML-S | ITML+ |
-|---|---|---|---|---|
-| Time | 1.49±0.60 | 0.69±0.15 | 1.86±0.69 | 1.46±0.22 |
+| | ITML | ITML+ |
+|---|---|---|
+| Time | 0.69±0.15 | 1.46±0.22 |

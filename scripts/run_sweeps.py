@@ -27,7 +27,7 @@ def main():
     for r in range(args.rounds):
         task = build_task(D, r, args.protocol)
         task.max_sweeps = args.sweeps
-        out = run_task(task, ['ITML', 'ITML-S', 'ITML+'], ('val', 'AP'), seed=r)
+        out = run_task(task, ['ITML', 'ITML+'], ('val', 'AP'), seed=r)
         results.append({'setting': {'sweeps': args.sweeps}, 'round': r,
                         'results': {m: {k: v for k, v in d.items() if k != 'all'} for m, d in out.items()},
                         'all': {m: d['all'] for m, d in out.items()}})

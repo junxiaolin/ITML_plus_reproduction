@@ -73,7 +73,7 @@ def main():
             for corr in [True, False]:
                 M, P = np.eye(V.shape[1]), np.eye(W.shape[1])
                 _itmlplus_core(X, Z, pairs[:, 0].copy(), pairs[:, 1].copy(), y.astype(np.int64),
-                               xi0.astype(float), np.ones(len(y), np.bool_), gamma, lam, M, P,
+                               xi0.astype(float), gamma, lam, M, P,
                                20000 * len(y), 1e-12, corr)
                 f = itmlplus_objective(M, P, V, W, xi0, gamma, lam)
                 dm = np.einsum('ij,jk,ik->i', V, M, V)
